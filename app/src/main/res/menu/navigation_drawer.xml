@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group>
+        <item
+            android:id="@+id/see_your_quotes"
+            android:title="My Quotes"
+            android:icon="@drawable/plan"/>
+        <item
+            android:id="@+id/write_quote"
+            android:title="Write Own Quotes"
+            android:icon="@drawable/edit" />
+
+
+    </group>
+
+    <item android:title="Account Settings">
+        <menu>
+            <item
+                android:id="@+id/update_pass"
+                android:icon="@drawable/password"
+                android:title="Update Password"/>
+
+            <item
+                android:id="@+id/logout"
+                android:icon="@drawable/logout"
+                android:title="Logout"/>
+        </menu>
+    </item>
+</menu>

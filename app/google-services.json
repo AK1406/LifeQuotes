@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "989868240086",
+    "firebase_url": "https://lifequotes-93a38.firebaseio.com",
+    "project_id": "lifequotes-93a38",
+    "storage_bucket": "lifequotes-93a38.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:989868240086:android:d42a93092c730450e72d77",
+        "android_client_info": {
+          "package_name": "com.example.android.lifequotes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "989868240086-jib2h1h75k94ugaqa0l0tdbsnlqhhjvi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB2Z6HAXPefIqt1n7AISGPv-n1YxaC53MM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "989868240086-jib2h1h75k94ugaqa0l0tdbsnlqhhjvi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">LifeQuotes</string>
+    <string name="thought">If the book is true, it will find an audience that is meant to read it...</string>
+    <string name="no_one_can_make_you_feel_inferior_without_your_consent">No one can make you feel inferior without your consent</string>
+    <string name="list_of_quotes">List of Quotes</string>
+    <string name="email">Email</string>
+    <string name="get_password_link">get password link</string>
+    <string name="or">OR</string>
+    <string name="back">back</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="sign_up">SignUp</string>
+    <string name="update_password">Update password</string>
+    <string name="get_started">get started</string>
+    <string name="breathing">Fill your paper with the breathings of your heart...</string>
+    <string name="category">Category</string>
+    <string name="your_new_quote">Your New Quote</string>
+    <string name="my_quotes_collection">My Quotes Collection</string>
+    <string name="write_your_plan">Write your plan</string>
+    <string name="submit">submit</string>
+    <string name="quote">quote</string>
+
+</resources>
