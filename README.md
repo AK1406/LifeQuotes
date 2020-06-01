@@ -25,9 +25,9 @@ Etc....
 
 App test on emulator 
 
-Name: Nexus 5X API 28 
-Resolution: 1080 x 1920: 420 dpi
-API: 28
+Name: Nexus 5X API 28 ,
+Resolution: 1080 x 1920: 420 dpi ,
+API: 28 ,
 Size on Disk: 10GB
 
 concepts of kotlin used
