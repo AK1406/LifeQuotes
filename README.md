@@ -41,7 +41,8 @@ concepts of kotlin used
 7. Adapter
 8. Toast
 9. Implicit Intent & Explicit Intent
-10. Etc...
+10. Lembda
+    Etc...
 
 Here is the link for watching complete work of the app
 
