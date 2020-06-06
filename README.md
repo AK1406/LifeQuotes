@@ -21,6 +21,7 @@ What it Contains:
 14. Animation during sliding down the quotes.
 15. GridView of different categories of quotes.
 17. Share facility
+18. Companion Object
 Etc....
 
 App test on emulator 
