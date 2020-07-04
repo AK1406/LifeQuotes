@@ -25,6 +25,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="@string/email"
+            android:drawableLeft="@drawable/ic_email"
+            android:inputType="textEmailAddress"
             android:textSize="24sp" />
 
         <LinearLayout
@@ -34,8 +36,9 @@
 
             <EditText
                 android:id="@+id/pass_edt_text"
-                android:layout_width="499dp"
+                android:layout_width="696dp"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_lock"
                 android:hint="@string/password"
                 android:inputType="textPassword"
                 android:textSize="24sp" />

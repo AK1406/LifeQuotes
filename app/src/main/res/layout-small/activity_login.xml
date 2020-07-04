@@ -31,6 +31,8 @@
             android:layout_height="match_parent"
             android:hint="@string/email"
             android:textSize="8sp"
+            android:drawableLeft="@drawable/ic_email"
+            android:inputType="textEmailAddress"
             tools:ignore="SmallSp" />
 
         <LinearLayout
@@ -45,6 +47,7 @@
                 android:hint="@string/password"
                 android:inputType="textPassword"
                 android:textSize="8sp"
+                android:drawableLeft="@drawable/ic_lock"
                 tools:ignore="SmallSp" />
 
             <FrameLayout
