@@ -20,5 +20,6 @@
     <string name="write_your_plan">Write your plan</string>
     <string name="submit">submit</string>
     <string name="quote">quote</string>
+    <string name="name">Name</string>
 
 </resources>
