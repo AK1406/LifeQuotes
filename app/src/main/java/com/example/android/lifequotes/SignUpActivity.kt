@@ -40,7 +40,7 @@ class SignUpActivity : AppCompatActivity() {
             val password: String = passwordEt.text.toString()
 
             if(TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
-                Toast.makeText(this, "Please fill all the fields", Toast.LENGTH_LONG).show()
+                Toast.makeText(this,"Please fill all the fields", Toast.LENGTH_LONG).show()
             }
 
             else{
