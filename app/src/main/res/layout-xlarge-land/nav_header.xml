@@ -18,14 +18,22 @@
         android:layout_marginBottom="10dp"
         android:src="@drawable/note"/>
 
+
     <TextView
-        android:id="@+id/quote"
+        android:id="@+id/UsersName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Life is quotes"
-        android:textSize="20sp"
-        android:textColor="#FFFFFF"
-        android:textStyle="bold"/>
+        android:paddingTop="8dp"
+        android:hint="@string/username"
+        android:textStyle="bold"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+    <TextView
+        android:id="@+id/UserEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:hint="@string/abc_gmail_com" />
 
 
 </LinearLayout>

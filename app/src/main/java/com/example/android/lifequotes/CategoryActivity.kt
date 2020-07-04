@@ -14,6 +14,10 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
+import kotlinx.android.synthetic.main.main_page.*
+import kotlinx.android.synthetic.main.nav_header.view.*
 
 class CategoryActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelectedListener{
 
@@ -24,6 +28,9 @@ class CategoryActivity : AppCompatActivity(),NavigationView.OnNavigationItemSele
     private lateinit var toolbar: Toolbar
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navView: NavigationView
+    private lateinit var myRef: DatabaseReference
+    private var userId: String? = null
+    private val user = FirebaseAuth.getInstance().currentUser
   //  private  var category:Category?=null
     var categoryList: ArrayList<Category> = ArrayList()
 
@@ -56,7 +63,7 @@ class CategoryActivity : AppCompatActivity(),NavigationView.OnNavigationItemSele
         setSupportActionBar(toolbar)
 
         drawerLayout = findViewById(R.id.student_drawer_layout)
-        navView = findViewById(R.id.student_nav_view)
+        navView = findViewById(R.id.nav_view)
 
         val toggle = ActionBarDrawerToggle(
             this, drawerLayout, toolbar, 0, 0
@@ -65,6 +72,7 @@ class CategoryActivity : AppCompatActivity(),NavigationView.OnNavigationItemSele
         toggle.syncState()
         navView.setNavigationItemSelectedListener(this)
 
+        changeNavigationHeaderInfo()
 
     }
 
@@ -126,6 +134,39 @@ class CategoryActivity : AppCompatActivity(),NavigationView.OnNavigationItemSele
         val displayMetrics = context.resources.displayMetrics
         val dpWidth = displayMetrics.widthPixels / displayMetrics.density
         return (dpWidth / 180).toInt()
+    }
+    private fun changeNavigationHeaderInfo() {
+        val headerView = nav_view.getHeaderView(0)
+        headerView.UserEmail.text = user?.email.toString() //retrieve email of user
+        //retrieve name
+        myRef = FirebaseDatabase.getInstance().getReference("profile")
+        userId = user?.uid
+        // User data change listener
+        myRef.child(userId!!).addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val userInfo = dataSnapshot.getValue(ProfileModel::class.java)
+                headerView.UsersName.text = userInfo?.name.toString()
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Failed to read value
+                //  Log.e(ProfileFragment.TAG, "Failed to read user", error.toException())
+            }
+        })
+        /*  val baos = ByteArrayOutputStream()
+          val storageRef = FirebaseStorage.getInstance()
+                  .reference
+                  .child("pics/${FirebaseAuth.getInstance().currentUser?.uid}")
+          val bitmap:Bitmap?=null
+          bitmap?.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+          storageRef.downloadUrl.addOnCompleteListener { urlTask ->
+              urlTask.result?.let {
+                  imageUri = it
+                  //   Toast.makeText(activity,imageUri.toString(),Toast.LENGTH_LONG).show()
+                  headerView.UserPic.setImageBitmap(bitmap)
+              }
+          }*/
+
     }
 
 }

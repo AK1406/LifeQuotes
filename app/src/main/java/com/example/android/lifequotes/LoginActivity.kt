@@ -83,11 +83,16 @@ class LoginActivity : AppCompatActivity() {
         loginBtn.setOnClickListener {
             val email: String = emailEt.text.toString()
             val password: String = passwordEt.text.toString()
-
-            if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
-                Toast.makeText(this, "Please fill all the fields", Toast.LENGTH_LONG).show()
-
-            } else {
+            if (TextUtils.isEmpty(email)) { //checking email & password not to be empty
+                emailEt.error = "Email Required"
+                emailEt.requestFocus()
+                return@setOnClickListener
+            }
+            if (TextUtils.isEmpty(password)) { //checking email & password not to be empty
+                passwordEt.error = "Password Required"
+                passwordEt.requestFocus()
+                return@setOnClickListener
+            }
                 auth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, OnCompleteListener { task ->
                         if (task.isSuccessful) {
@@ -100,7 +105,7 @@ class LoginActivity : AppCompatActivity() {
                             Toast.makeText(this, "Login Failed, incorrect email & password", Toast.LENGTH_LONG).show()
                         }
                     })
-            }
+
         }
 
         signUpBtn.setOnClickListener {
