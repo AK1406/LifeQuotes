@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.android.lifequotes.WriteQuoteModel
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.my_quote_list_item.*
 import kotlinx.android.synthetic.main.quote_detail_item_list.*
@@ -18,6 +19,8 @@ class ShowMyQuote : AppCompatActivity() {
     private lateinit var back: Button
     private lateinit var myRef:DatabaseReference
     private lateinit var listView: ListView
+    private val user = FirebaseAuth.getInstance().currentUser
+    private var userId: String? = null
     @SuppressLint("WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,8 +41,8 @@ class ShowMyQuote : AppCompatActivity() {
 
         myRef = FirebaseDatabase.getInstance().getReference("quotes") //at time to read value from database
 
-
-        myRef.addValueEventListener(object:ValueEventListener{
+        userId = user?.uid
+        myRef.child(userId!!).addValueEventListener(object:ValueEventListener{
             override fun onCancelled(p0: DatabaseError) {
                 TODO("Not yet implemented")
             }
@@ -50,8 +53,6 @@ class ShowMyQuote : AppCompatActivity() {
                     for(i in p0.children){
                         val plan=i.getValue(WriteQuoteModel::class.java)
                         quoteList.add(plan!!)
-
-
                     }
                     val adapter=NewQuoteAdapter(this@ShowMyQuote, R.layout.my_quote_list_item,quoteList)
                     listView.adapter=adapter

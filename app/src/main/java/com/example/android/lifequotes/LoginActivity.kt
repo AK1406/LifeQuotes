@@ -24,7 +24,7 @@ import kotlinx.android.synthetic.main.activity_login.*
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
-
+    private val user = FirebaseAuth.getInstance().currentUser
     lateinit var gso: GoogleSignInOptions
     lateinit var mGoogleSignInClient: GoogleSignInClient
     val RC_SIGN_IN: Int = 1
@@ -87,6 +87,7 @@ class LoginActivity : AppCompatActivity() {
                 emailEt.error = "Email Required"
                 emailEt.requestFocus()
                 return@setOnClickListener
+
             }
             if (TextUtils.isEmpty(password)) { //checking email & password not to be empty
                 passwordEt.error = "Password Required"

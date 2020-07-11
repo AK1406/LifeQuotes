@@ -1,9 +1,11 @@
 package com.example.android.lifequotes
 
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
@@ -17,6 +19,7 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.main_page.*
+import kotlinx.android.synthetic.main.nav_header.*
 import kotlinx.android.synthetic.main.nav_header.view.*
 
 class CategoryActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelectedListener{
@@ -153,20 +156,38 @@ class CategoryActivity : AppCompatActivity(),NavigationView.OnNavigationItemSele
                 //  Log.e(ProfileFragment.TAG, "Failed to read user", error.toException())
             }
         })
-        /*  val baos = ByteArrayOutputStream()
-          val storageRef = FirebaseStorage.getInstance()
-                  .reference
-                  .child("pics/${FirebaseAuth.getInstance().currentUser?.uid}")
-          val bitmap:Bitmap?=null
-          bitmap?.compress(Bitmap.CompressFormat.JPEG, 100, baos)
-          storageRef.downloadUrl.addOnCompleteListener { urlTask ->
-              urlTask.result?.let {
-                  imageUri = it
-                  //   Toast.makeText(activity,imageUri.toString(),Toast.LENGTH_LONG).show()
-                  headerView.UserPic.setImageBitmap(bitmap)
-              }
-          }*/
+        if (user?.isEmailVerified!!){
+            headerView.unverified.visibility= View.INVISIBLE
+            headerView.verified.visibility= View.VISIBLE
+        }
+        else{
+            headerView.verified.visibility=View.INVISIBLE
+            headerView.unverified.visibility=View.VISIBLE
+        }
+
+        headerView.unverified.setOnClickListener{
+            emailVerification()
+        }
 
     }
-
+    private fun emailVerification(){
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Email Verification !")
+        builder.setMessage("Verify Your Email to get update with us.")
+        builder.setPositiveButton("YES"){text,Listener->
+            user?.sendEmailVerification()
+                ?.addOnCompleteListener {
+                    if (it.isSuccessful) {
+                        Toast.makeText(this, "Verification email sent ", Toast.LENGTH_LONG).show()
+                    } else {
+                        Toast.makeText(this, "Failed to send verification email ", Toast.LENGTH_LONG).show()
+                    }
+                }
+        }
+        builder.setNegativeButton("CANCEL"){ text,Listener->
+            Toast.makeText(this,"Email not Verified !",Toast.LENGTH_LONG).show()
+        }
+        builder.create()
+        builder.show()
+    }
 }

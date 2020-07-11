@@ -1,5 +1,7 @@
 package com.example.android.lifequotes;
 
+import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -22,6 +24,7 @@ class SignUpActivity : AppCompatActivity() {
     private lateinit var signUpBtn: Button
     private lateinit var loginBtn: Button
     private var userId: String? = null
+    private val user = FirebaseAuth.getInstance().currentUser
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,12 +50,16 @@ class SignUpActivity : AppCompatActivity() {
 
             else{
                 if (password.length < 6) {
-                    Toast.makeText(this,"Password too short! , enter minimum 6 characters",Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        this,
+                        "Password too short! , enter minimum 6 characters",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
                 auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, OnCompleteListener{ task ->
                     if(task.isSuccessful){
-                        Toast.makeText(this, "Successfully Registered", Toast.LENGTH_LONG).show()
-                        saveInfo(name)
+                            Toast.makeText(this, "Successfully Registered", Toast.LENGTH_LONG).show()
+                            saveInfo(name)
 
                     }else {
                         Toast.makeText(this, "Registration Failed", Toast.LENGTH_LONG).show()
@@ -88,4 +95,6 @@ class SignUpActivity : AppCompatActivity() {
             }
         }
     }
+
+
 }

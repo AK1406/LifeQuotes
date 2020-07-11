@@ -13,7 +13,6 @@ import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.firebase.database.FirebaseDatabase
 
-
 class NewQuoteAdapter(private val ctx: Context, private val layoutResId:Int, private val newQuoteList:List<WriteQuoteModel>)
     : ArrayAdapter<WriteQuoteModel>(ctx,layoutResId,newQuoteList){
 
@@ -26,19 +25,19 @@ class NewQuoteAdapter(private val ctx: Context, private val layoutResId:Int, pri
         val delete: ImageView =view.findViewById(R.id.delete)
         val layout:ConstraintLayout=view.findViewById(R.id.updateLayout)
         val quote = newQuoteList[position]
-        quoteView.text=quote.myQuote
+        quoteView.text= quote.myQuote
 
        delete.setOnClickListener {
             remove(quote)
         }
         layout.setOnClickListener {
-            updateInfo(quote)
+            updateInfo(quote,position)
         }
 
         share.setOnClickListener {
             val intent= Intent()                                                                       //implicit intent
             intent.action= Intent.ACTION_SEND
-            intent.putExtra(Intent.EXTRA_TEXT,quote.myQuote)
+            intent.putExtra(Intent.EXTRA_TEXT,quote.myQuote[position])
             intent.type="text/plain"
             ctx.startActivity(Intent.createChooser(intent,"Share to : "))
         }
@@ -46,18 +45,19 @@ class NewQuoteAdapter(private val ctx: Context, private val layoutResId:Int, pri
         return view
     }
     @SuppressLint("InflateParams")
-    private fun updateInfo(quote:WriteQuoteModel) {
+    private fun updateInfo(quote:WriteQuoteModel,position: Int) {
         val builder= AlertDialog.Builder(ctx)
         val layoutInflater:LayoutInflater= LayoutInflater.from(ctx)
         builder.setTitle("Edit Your Quote")
         val view:View = layoutInflater.inflate(R.layout.edit_quote,null)
-        val quoteUpdate:TextView=view.findViewById(R.id.edit_quote)
+        val quoteUpdate:EditText=view.findViewById(R.id.edit_quote)
+        quoteUpdate.setText(quote.myQuote)
         builder.setView(view)
 
         builder.setPositiveButton("Update",object : DialogInterface.OnClickListener{
             override fun onClick(dialog: DialogInterface?, which: Int) {
                 val upQuote= FirebaseDatabase.getInstance().getReference("quotes")
-                val myQuote = quoteUpdate.text.toString().trim()
+                 val myQuote = quoteUpdate.text.toString().trim()
                 if (myQuote.isEmpty()) {
                     quoteUpdate.error="This field can't be empty!"
                     quoteUpdate.requestFocus()
