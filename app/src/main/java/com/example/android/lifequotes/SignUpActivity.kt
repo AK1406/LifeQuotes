@@ -24,8 +24,6 @@ class SignUpActivity : AppCompatActivity() {
     private lateinit var signUpBtn: Button
     private lateinit var loginBtn: Button
     private var userId: String? = null
-    private val user = FirebaseAuth.getInstance().currentUser
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)

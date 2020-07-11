@@ -16,7 +16,7 @@ class OwnQuoteWriter : AppCompatActivity() {
     private var userId: String? = null
     private val quoteList:MutableList<String> = mutableListOf()
     private val messageObj :MutableList<WriteQuoteModel> = mutableListOf()
-    var i =0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.write_quote)
@@ -50,9 +50,8 @@ class OwnQuoteWriter : AppCompatActivity() {
             emailId = user.email.toString()
             val subEmail = emailId.substringBefore("@")  //abc123@gmail.com -> abc123(substring of email id)
             val quoteId = myRef.push().key
-             val message =  WriteQuoteModel(subEmail,msgText)
-            messageObj.add(message)
-                i += 1
+             val message = quoteId?.let { WriteQuoteModel(it,msgText) }
+            messageObj.add(message!!)
             if (quoteId != null) {
                 myRef.child(userId!!).child(quoteId).setValue(messageObj[messageObj.size-1]).addOnCompleteListener {
                     Toast.makeText(this, "Quote is saved successfully ", Toast.LENGTH_SHORT)

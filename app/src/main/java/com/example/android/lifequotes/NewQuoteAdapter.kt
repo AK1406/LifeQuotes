@@ -11,8 +11,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 
+private var userId: String? = null
 class NewQuoteAdapter(private val ctx: Context, private val layoutResId:Int, private val newQuoteList:List<WriteQuoteModel>)
     : ArrayAdapter<WriteQuoteModel>(ctx,layoutResId,newQuoteList){
 
@@ -31,13 +33,13 @@ class NewQuoteAdapter(private val ctx: Context, private val layoutResId:Int, pri
             remove(quote)
         }
         layout.setOnClickListener {
-            updateInfo(quote,position)
+            updateInfo(quote)
         }
 
         share.setOnClickListener {
             val intent= Intent()                                                                       //implicit intent
             intent.action= Intent.ACTION_SEND
-            intent.putExtra(Intent.EXTRA_TEXT,quote.myQuote[position])
+            intent.putExtra(Intent.EXTRA_TEXT,quote.myQuote)
             intent.type="text/plain"
             ctx.startActivity(Intent.createChooser(intent,"Share to : "))
         }
@@ -45,7 +47,7 @@ class NewQuoteAdapter(private val ctx: Context, private val layoutResId:Int, pri
         return view
     }
     @SuppressLint("InflateParams")
-    private fun updateInfo(quote:WriteQuoteModel,position: Int) {
+    private fun updateInfo(quote:WriteQuoteModel) {
         val builder= AlertDialog.Builder(ctx)
         val layoutInflater:LayoutInflater= LayoutInflater.from(ctx)
         builder.setTitle("Edit Your Quote")
@@ -80,8 +82,10 @@ class NewQuoteAdapter(private val ctx: Context, private val layoutResId:Int, pri
     }
 
     private fun remove(quote:WriteQuoteModel) {
-
-        val addedQuote = FirebaseDatabase.getInstance().getReference("quotes").child(quote.id)
+        val user = FirebaseAuth.getInstance().currentUser
+        // add username, email to database
+        userId = user!!.uid
+        val addedQuote = FirebaseDatabase.getInstance().getReference("quotes").child(userId!!).child(quote.id)
         addedQuote.removeValue()
         Toast.makeText(ctx, "Quote is Removed", Toast.LENGTH_LONG).show()
     }
