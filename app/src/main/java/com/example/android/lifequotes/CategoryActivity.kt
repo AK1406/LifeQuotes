@@ -149,6 +149,9 @@ class CategoryActivity : AppCompatActivity(),NavigationView.OnNavigationItemSele
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val userInfo = dataSnapshot.getValue(ProfileModel::class.java)
                 headerView.UsersName.text = userInfo?.name.toString()
+                if(userInfo?.name.toString()== "null"){
+                    headerView.UsersName.text=user?.displayName.toString()
+                }
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -156,6 +159,7 @@ class CategoryActivity : AppCompatActivity(),NavigationView.OnNavigationItemSele
                 //  Log.e(ProfileFragment.TAG, "Failed to read user", error.toException())
             }
         })
+
         if (user?.isEmailVerified!!){
             headerView.unverified.visibility= View.INVISIBLE
             headerView.verified.visibility= View.VISIBLE
