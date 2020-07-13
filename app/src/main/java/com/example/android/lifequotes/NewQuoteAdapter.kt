@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.FirebaseDatabase
 
 private var userId: String? = null
@@ -58,7 +59,10 @@ class NewQuoteAdapter(private val ctx: Context, private val layoutResId:Int, pri
 
         builder.setPositiveButton("Update",object : DialogInterface.OnClickListener{
             override fun onClick(dialog: DialogInterface?, which: Int) {
-                val upQuote= FirebaseDatabase.getInstance().getReference("quotes")
+                val user = FirebaseAuth.getInstance().currentUser
+                // add username, email to database
+                userId = user!!.uid
+                val upQuote= FirebaseDatabase.getInstance().getReference("quotes").child(userId!!)
                  val myQuote = quoteUpdate.text.toString().trim()
                 if (myQuote.isEmpty()) {
                     quoteUpdate.error="This field can't be empty!"
