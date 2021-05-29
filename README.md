@@ -46,10 +46,8 @@ concepts of kotlin used
     Etc...
     
 Here is the working of the app.
- 
-https://user-images.githubusercontent.com/42924677/120071704-1be88d80-c0ae-11eb-8f38-0a104d959ab7.mp4
 
-
+https://user-images.githubusercontent.com/42924677/120072624-63711880-c0b2-11eb-82ad-1e697348edae.mp4
 
 
 Thank You ! 30DaysOfKotlin
