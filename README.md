@@ -44,10 +44,10 @@ concepts of kotlin used
 9. Implicit Intent & Explicit Intent
 10. Lembda
     Etc...
+    
+Here is the working of the app.
 
-Here is the link for watching complete work of the app
-
-https://drive.google.com/file/d/1gOxWZdDcvjEAzlLPAap4xfsUwcju1Xsc/view?usp=sharing
+https://user-images.githubusercontent.com/42924677/120072624-63711880-c0b2-11eb-82ad-1e697348edae.mp4
 
 
 Thank You ! 30DaysOfKotlin
