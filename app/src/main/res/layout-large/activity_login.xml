@@ -30,29 +30,34 @@
             android:textSize="24sp" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:weightSum="2">
 
             <EditText
                 android:id="@+id/pass_edt_text"
-                android:layout_width="499dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:drawableStart="@drawable/ic_lock"
                 android:hint="@string/password"
-                android:drawableLeft="@drawable/ic_lock"
                 android:inputType="textPassword"
-                android:textSize="24sp" />
+                android:autofillHints="@string/password" />
 
             <FrameLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="0.5">
 
                 <ImageView
                     android:id="@+id/HideBtn"
                     android:layout_width="60dp"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="8dp"
-                    android:layout_weight="1"
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/password_invisible"
                     app:srcCompat="@drawable/eyecross"
                     tools:ignore="VectorDrawableCompat" />
 
@@ -61,7 +66,8 @@
                     android:layout_width="60dp"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="8dp"
-                    android:layout_weight="1"
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/password_visible"
                     app:srcCompat="@drawable/eye"
                     tools:ignore="VectorDrawableCompat" />
 

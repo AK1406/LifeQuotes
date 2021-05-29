@@ -19,6 +19,7 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
@@ -28,6 +29,7 @@ class LoginActivity : AppCompatActivity() {
     lateinit var gso: GoogleSignInOptions
     lateinit var mGoogleSignInClient: GoogleSignInClient
     val RC_SIGN_IN: Int = 1
+    private var userId: String? = null
 
     private lateinit var emailEt: EditText
     private lateinit var passwordEt: EditText
@@ -132,11 +134,12 @@ class LoginActivity : AppCompatActivity() {
             try {
                 val account: GoogleSignInAccount? = task.getResult(ApiException::class.java)
                 if (account != null) {
+                    saveInfo(user!!.displayName!!)
                     val intent =Intent(this,CategoryActivity::class.java)
                     startActivity(intent)
                     Toast.makeText(this, "Google Sign in Succeeded", Toast.LENGTH_LONG).show()
                     finish()
-                    firebaseAuthWithGoogle(account!!)
+                    firebaseAuthWithGoogle(account)
                 }
             } catch (e: ApiException) {
                 Toast.makeText(this, "Google Sign in Failed $e", Toast.LENGTH_LONG).show()
@@ -146,16 +149,35 @@ class LoginActivity : AppCompatActivity() {
     private fun firebaseAuthWithGoogle(acct: GoogleSignInAccount) {
 
         val credential = GoogleAuthProvider.getCredential(acct.idToken, null)
-        auth!!.signInWithCredential(credential)
+        auth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    val user = auth!!.currentUser
+                    val user = auth.currentUser
                     Toast.makeText(this@LoginActivity, "Authentication successfull :"+user!!.email, Toast.LENGTH_LONG).show()
 
                 } else {
                     Toast.makeText(this@LoginActivity, "Authentication failed:" + task.exception!!, Toast.LENGTH_LONG).show()
                 }
             }
+    }
+
+
+    private fun saveInfo(name:String) {
+        val myRef = FirebaseDatabase.getInstance().getReference("profile") // making reference for the object of profile
+        // add username, email to database
+        userId = user!!.uid
+        val emailId: String = user.email.toString()
+        val subEmail = emailId.substringBefore("@")  //abc123@gmail.com -> abc123(substring of email id)
+        val profileId = myRef.push().key //generating random key
+        val profileInfo = profileId?.let { ProfileModel(subEmail,name,emailId)
+        } //passing taken information to a class constructor of ProfileModel
+        if (profileId != null) {
+            //set the taken information
+            myRef.child(userId!!).setValue(profileInfo).addOnCompleteListener {
+                Toast.makeText(this, "Your profile is saved successfully ", Toast.LENGTH_SHORT)
+                    .show()
+            }
+        }
     }
 
 }

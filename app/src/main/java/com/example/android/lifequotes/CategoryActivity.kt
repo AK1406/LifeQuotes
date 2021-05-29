@@ -34,7 +34,6 @@ class CategoryActivity : AppCompatActivity(),NavigationView.OnNavigationItemSele
     private lateinit var myRef: DatabaseReference
     private var userId: String? = null
     private val user = FirebaseAuth.getInstance().currentUser
-  //  private  var category:Category?=null
     var categoryList: ArrayList<Category> = ArrayList()
 
 
@@ -54,7 +53,7 @@ class CategoryActivity : AppCompatActivity(),NavigationView.OnNavigationItemSele
             startActivity(intent)
         }
 
-        var column =calNoOfColumns(applicationContext)
+        val column =calNoOfColumns(applicationContext)
         gridLayoutManager = GridLayoutManager(applicationContext, column, LinearLayoutManager.VERTICAL, false)
         recyclerView?.layoutManager = gridLayoutManager
         recyclerView?.setHasFixedSize(true)
@@ -178,7 +177,7 @@ class CategoryActivity : AppCompatActivity(),NavigationView.OnNavigationItemSele
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Email Verification !")
         builder.setMessage("Verify Your Email to get update with us.")
-        builder.setPositiveButton("YES"){text,Listener->
+        builder.setPositiveButton("YES"){ _, _ ->
             user?.sendEmailVerification()
                 ?.addOnCompleteListener {
                     if (it.isSuccessful) {
@@ -188,7 +187,7 @@ class CategoryActivity : AppCompatActivity(),NavigationView.OnNavigationItemSele
                     }
                 }
         }
-        builder.setNegativeButton("CANCEL"){ text,Listener->
+        builder.setNegativeButton("CANCEL"){ _, _ ->
             Toast.makeText(this,"Email not Verified !",Toast.LENGTH_LONG).show()
         }
         builder.create()
