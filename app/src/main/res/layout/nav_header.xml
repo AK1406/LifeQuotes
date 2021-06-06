@@ -37,20 +37,6 @@
         android:layout_height="wrap_content"
         android:hint="@string/abc_gmail_com"
         android:textStyle="bold" />
-<FrameLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
-    <ImageView
-        android:id="@+id/unverified"
-        android:layout_width="55dp"
-        android:layout_height="match_parent"
-        app:srcCompat="@drawable/unverified" />
-    <ImageView
-        android:id="@+id/verified"
-        android:layout_width="55dp"
-        android:layout_height="match_parent"
-        app:srcCompat="@drawable/verified"
-        android:visibility="invisible"/>
-</FrameLayout>
+
 </LinearLayout>
 </LinearLayout>

@@ -26,7 +26,8 @@
             android:layout_height="match_parent"
             android:hint="@string/email"
             android:drawableLeft="@drawable/ic_email"
-            android:inputType="textEmailAddress"/>
+            android:inputType="textEmailAddress"
+            android:autofillHints="@string/email" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -90,7 +91,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:clickable="true"
-            android:text="@string/forgot_password" />
+            android:text="@string/forgot_password"
+            android:focusable="true" />
 
         <RelativeLayout
             android:layout_width="match_parent"

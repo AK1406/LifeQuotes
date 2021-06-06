@@ -1,4 +1,4 @@
-package com.example.android.lifequotes;
+package com.example.android.lifequotes
 
 
 import android.annotation.SuppressLint
@@ -10,9 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.FirebaseDatabase
 
 private var userId: String? = null
@@ -26,12 +24,21 @@ class NewQuoteAdapter(private val ctx: Context, private val layoutResId:Int, pri
         val quoteView: TextView =view.findViewById(R.id.textQuote)
         val share:ImageView=view.findViewById(R.id.share)
         val delete: ImageView =view.findViewById(R.id.delete)
-        val layout:ConstraintLayout=view.findViewById(R.id.updateLayout)
+        val layout:LinearLayout = view.findViewById(R.id.quote_item)
         val quote = newQuoteList[position]
         quoteView.text= quote.myQuote
 
        delete.setOnClickListener {
-            remove(quote)
+           val alterDialog = AlertDialog.Builder(ctx)
+           alterDialog.setTitle("Really want to delete?")
+           alterDialog.setPositiveButton("YES") { _, _ ->
+               remove(quote)
+           }
+           alterDialog.setNegativeButton("CANCEL") { _, _ ->
+           }
+           alterDialog.setCancelable(false)
+           alterDialog.create()
+           alterDialog.show()
         }
         layout.setOnClickListener {
             updateInfo(quote)
@@ -47,6 +54,11 @@ class NewQuoteAdapter(private val ctx: Context, private val layoutResId:Int, pri
 
         return view
     }
+
+    override fun getViewTypeCount(): Int {
+        return count
+    }
+
     @SuppressLint("InflateParams")
     private fun updateInfo(quote:WriteQuoteModel) {
         val builder= AlertDialog.Builder(ctx)
@@ -76,11 +88,10 @@ class NewQuoteAdapter(private val ctx: Context, private val layoutResId:Int, pri
             }
 
         })
-        builder.setNegativeButton("No",object : DialogInterface.OnClickListener{
-            override fun onClick(dialog: DialogInterface?, which: Int) {
-                    Toast.makeText(ctx, "Quote remains as it is", Toast.LENGTH_SHORT).show()
-            }
-        })
+        builder.setNegativeButton("No"
+        ) { _, _ ->
+            Toast.makeText(ctx, "Quote remains as it is", Toast.LENGTH_SHORT).show()
+        }
         val alert=builder.create()
         alert.show()
     }

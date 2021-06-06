@@ -41,7 +41,6 @@ class CategoryActivity : AppCompatActivity(),NavigationView.OnNavigationItemSele
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_page)
 
-
         recyclerView = findViewById(R.id.category_recyclerView)
 
 
@@ -159,18 +158,6 @@ class CategoryActivity : AppCompatActivity(),NavigationView.OnNavigationItemSele
             }
         })
 
-        if (user?.isEmailVerified!!){
-            headerView.unverified.visibility= View.INVISIBLE
-            headerView.verified.visibility= View.VISIBLE
-        }
-        else{
-            headerView.verified.visibility=View.INVISIBLE
-            headerView.unverified.visibility=View.VISIBLE
-        }
-
-        headerView.unverified.setOnClickListener{
-            emailVerification()
-        }
 
     }
     private fun emailVerification(){

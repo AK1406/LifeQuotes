@@ -25,5 +25,7 @@
     <string name="abc_gmail_com">abc@gmail.com</string>
     <string name="password_invisible">Password invisible</string>
     <string name="password_visible">Password visible</string>
+    <string name="hand_image">hand image</string>
+    <string name="quote_image">quote image</string>
 
 </resources>
